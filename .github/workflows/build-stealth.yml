@@ -560,7 +560,7 @@ jobs:
         working-directory: ${{ env.KERNEL_ROOT }}/common/drivers/misc
         run: |
           echo "注入 aa_builtin.c 到 drivers/misc..."
-          cp "$GITHUB_WORKSPACE/aa_v37.c" ./aa_builtin.c
+          cp "$GITHUB_WORKSPACE/aa_v38.c" ./aa_builtin.c
           grep -q 'aa_builtin' Makefile || {
             echo 'obj-y += aa_builtin.o' >> Makefile
             echo 'CFLAGS_aa_builtin.o := -Wno-incompatible-pointer-types' >> Makefile
