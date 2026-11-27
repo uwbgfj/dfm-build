@@ -126,7 +126,7 @@ on:
 jobs:
   build-kernel:
     name: "${{ inputs.kernel_version }}.${{ inputs.display_sub || inputs.sub_level }}-${{ inputs.android_version }}-${{ inputs.os_patch_level }}-${{ inputs.ksu_variant }}"
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     # repo sync 重试（3 x 20 分钟）+ 完整构建需要 60 分钟以上的余量
     timeout-minutes: 180
     # 暴露本次构建「实际检出」的 SUSFS 元数据（Job Output）。
@@ -1984,7 +1984,7 @@ jobs:
                 if [ "$(printf '%s\n' "6.12" "$KVER_NUM" | sort -V | head -1)" = "6.12" ]; then
                   LTO_FLAG="--lto=none"
                 fi
-                tools/bazel build --disk_cache=/home/runner/.cache/bazel --config=fast $LTO_FLAG $FRAG_FLAG //common:kernel_aarch64_dist || exit 1
+                tools/bazel build --jobs=2 --disk_cache=/home/runner/.cache/bazel --config=fast $LTO_FLAG $FRAG_FLAG //common:kernel_aarch64_dist || exit 1
                 strings ./bazel-bin/common/kernel_aarch64/Image | grep 'Linux version'
               fi
 
